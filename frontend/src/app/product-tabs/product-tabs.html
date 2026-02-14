@@ -1,0 +1,46 @@
+<div class="product-tabs-container">
+    <div class="products-wrapper">
+        <!-- Tabs Header -->
+        <div class="tabs-header">
+            <button *ngFor="let tab of tabs" [class.active]="activeTab === tab" (click)="setActiveTab(tab)"
+                class="tab-btn">
+                {{ tab }}
+            </button>
+        </div>
+
+        <!-- Slider Navigation -->
+        <button class="slider-arrow prev-arrow" *ngIf="showArrows" (click)="scrollLeft()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slider-arrow next-arrow" *ngIf="showArrows" (click)="scrollRight()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <!-- Product Slider -->
+        <div class="products-slider" #sliderRef>
+            <div class="product-card" *ngFor="let product of currentProducts"
+                [routerLink]="['/product', getSlug(product.name)]" style="cursor: pointer;">
+                <div class="image-container">
+                    <img [src]="product.image" [alt]="product.name" class="product-img main-img">
+                    <img [src]="product.hoverImage || product.image" [alt]="product.name" class="product-img hover-img">
+                    <span class="discount-badge" *ngIf="product.discount">{{ product.discount }}</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">{{ product.name }}</h3>
+                    <div class="price-container">
+                        <span class="current-price">{{ product.price }}</span>
+                        <span class="original-price" *ngIf="product.originalPrice">{{ product.originalPrice }}</span>
+                        <span class="discount-text" *ngIf="product.discountPercent">{{ product.discountPercent }}%
+                            OFF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Button -->
+        <div class="view-all-container">
+            <a [routerLink]="['/products', activeTab]" class="view-all-btn">View All <i
+                    class="fas fa-chevron-right ml-2"></i></a>
+        </div>
+    </div>
+</div>

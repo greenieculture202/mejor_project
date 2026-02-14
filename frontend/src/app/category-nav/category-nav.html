@@ -1,0 +1,67 @@
+<div class="category-nav-container">
+    <ul class="category-list">
+        <li *ngFor="let cat of categories" (mouseenter)="showMenu(cat)" (mouseleave)="hideMenu()"
+            [class.active]="activeCategory === cat">
+
+            <span class="category-link">
+                {{ cat }}
+                <i class="fas fa-chevron-down" *ngIf="cat === 'Plants'"></i>
+            </span>
+
+            <!-- Mega Menu for Plants -->
+            <div class="mega-menu" *ngIf="cat === 'Plants' && activeCategory === 'Plants'">
+                <div class="menu-column">
+                    <h3>Elite Greens</h3>
+                    <ul>
+                        <li *ngFor="let item of plantsMenu.eliteGreens">
+                            <ng-container *ngIf="isComplexItem(item); else simpleItem">
+                                {{ $any(item).name }} <span class="badge">{{ $any(item).badge }}</span>
+                            </ng-container>
+                            <ng-template #simpleItem>{{ item }}</ng-template>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="menu-column">
+                    <h3>Perfect Placements</h3>
+                    <ul>
+                        <li *ngFor="let item of plantsMenu.perfectPlacements">{{ item }}</li>
+                    </ul>
+                    <h3 class="mt-4">For Celebrations</h3>
+                    <ul>
+                        <li *ngFor="let item of plantsMenu.forCelebrations">{{ item }}</li>
+                    </ul>
+                </div>
+
+                <div class="menu-column">
+                    <h3>Plants Collection</h3>
+                    <ul>
+                        <li *ngFor="let item of plantsMenu.plantsCollection">{{ item }}</li>
+                    </ul>
+                </div>
+
+                <div class="menu-column">
+                    <h3>Planters Style</h3>
+                    <ul>
+                        <li *ngFor="let item of plantsMenu.plantersStyle">{{ item }}</li>
+                    </ul>
+                </div>
+
+                <div class="menu-column">
+                    <h3>Send Plants To</h3>
+                    <ul>
+                        <li *ngFor="let item of plantsMenu.sendPlantsTo">{{ item }}</li>
+                    </ul>
+                </div>
+
+                <div class="menu-column image-column">
+                    <div class="promo-image-card">
+                        <img src="https://www.ugaoo.com/cdn/shop/files/Agb_3.jpg?v=1719572522&width=360"
+                            alt="Lush Plants">
+                        <div class="promo-text">Lush Plants</div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

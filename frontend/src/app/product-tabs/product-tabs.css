@@ -1,0 +1,267 @@
+/* Main Container */
+.product-tabs-container {
+    width: 100%;
+    padding: 3rem 5%;
+    background-color: #fcfcfc;
+}
+
+/* Tab Navigation */
+.tabs-header {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    overflow-x: auto;
+    /* Allow scroll on small screens */
+    white-space: nowrap;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    color: #777;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    font-weight: 500;
+}
+
+.tab-btn:hover {
+    color: #1a5d1a;
+}
+
+.tab-btn.active {
+    color: #1a5d1a;
+    font-weight: 700;
+}
+
+/* Underline Animation for Tabs */
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    /* Match parent padding-bottom */
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #1a5d1a;
+    transition: width 0.3s ease;
+}
+
+.tab-btn.active::after {
+    width: 100%;
+}
+
+/* Product Product Grid/Carousel */
+.products-wrapper {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.products-slider {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.products-slider::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+}
+
+/* Product Card */
+.product-card {
+    min-width: 280px;
+    max-width: 280px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f0f0f0;
+    position: relative;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+
+.image-container {
+    height: 280px;
+    /* Keep height consistent in tabs slider */
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important;
+    /* Full bleed image */
+    object-position: center;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    padding: 0;
+    /* Remove padding */
+    z-index: 1;
+}
+
+.hover-img {
+    opacity: 0;
+    z-index: 2;
+}
+
+.product-card:hover .hover-img {
+    opacity: 1;
+    transform: scale(1.05);
+    /* Slight zoom on hover */
+}
+
+/* Hide main image on hover so it doesn't show through if hover image has transparency (unlikely, but safe) */
+.product-card:hover .main-img {
+    opacity: 0;
+}
+
+/* Badge if needed */
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #1a5d1a;
+    /* Green */
+    color: white;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    z-index: 10;
+    /* Ensure badge stays above images */
+}
+
+.product-info {
+    padding: 1.2rem;
+    text-align: left;
+}
+
+.product-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price-container {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.current-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a5d1a;
+}
+
+.original-price {
+    font-size: 0.9rem;
+    text-decoration: line-through;
+    color: #999;
+}
+
+.discount-text {
+    font-size: 0.8rem;
+    color: #388e3c;
+    /* Discount Green */
+    font-weight: 600;
+}
+
+/* Nav Arrows */
+/* Nav Arrows */
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    /* Cleaner look */
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+    /* Ensure on top */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0.9;
+}
+
+.slider-arrow:hover {
+    background: #1a5d1a;
+    color: #fff;
+    transform: translateY(-50%) scale(1.1);
+    /* Subtle pop */
+    box-shadow: 0 8px 20px rgba(26, 93, 26, 0.3);
+}
+
+.prev-arrow {
+    left: 10px;
+    /* Inside the container */
+}
+
+.next-arrow {
+    right: 10px;
+    /* Inside the container */
+}
+
+/* View All Button */
+.view-all-container {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.view-all-btn {
+    display: inline-block;
+    padding: 0.8rem 2.5rem;
+    background-color: transparent;
+    border: 1px solid #1a5d1a;
+    color: #1a5d1a;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.view-all-btn:hover {
+    background-color: #1a5d1a;
+    color: white;
+}

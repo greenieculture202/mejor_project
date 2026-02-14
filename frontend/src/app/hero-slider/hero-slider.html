@@ -1,0 +1,34 @@
+<div class="hero-slider">
+    <div class="slides-container" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+        <div class="slide" *ngFor="let slide of slides; let i = index">
+            <img [src]="slide.image" class="slide-bg" alt="{{ slide.title }}">
+            <div class="slide-content">
+                <h2 class="title">{{ slide.title }}</h2>
+                <div class="subtitle-group">
+                    <span class="subtitle">{{ slide.subtitle }}</span>
+                    <span class="highlight">{{ slide.highlight }}</span>
+                </div>
+                <div class="discount">{{ slide.discount }}</div>
+                <button class="shop-now-btn">Shop Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button class="nav-btn prev" (click)="prevSlide()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+    <button class="nav-btn next" (click)="nextSlide()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+
+    <!-- Dots -->
+    <div class="dots-container">
+        <span class="dot" *ngFor="let slide of slides; let i = index" [class.active]="i === currentIndex"
+            (click)="goToSlide(i)"></span>
+    </div>
+</div>

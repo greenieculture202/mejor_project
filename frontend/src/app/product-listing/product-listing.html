@@ -1,0 +1,27 @@
+<div class="listing-container">
+    <div class="header-section">
+        <a routerLink="/" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <h1 class="listing-title">{{ displayCategory }}</h1>
+        <p class="listing-subtitle">Explore our exclusive collection</p>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card" *ngFor="let product of products" [routerLink]="['/product', getSlug(product.name)]"
+            style="cursor: pointer;">
+            <div class="image-container">
+                <img [src]="product.image" [alt]="product.name" class="product-img main-img">
+                <img [src]="product.hoverImage || product.image" [alt]="product.name" class="product-img hover-img">
+                <span class="discount-badge" *ngIf="product.discount">{{ product.discount }}</span>
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">{{ product.name }}</h3>
+                <div class="price-container">
+                    <span class="current-price">{{ product.price }}</span>
+                    <span class="original-price" *ngIf="product.originalPrice">{{ product.originalPrice }}</span>
+                    <span class="discount-text" *ngIf="product.discountPercent">{{ product.discountPercent }}%
+                        OFF</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,185 @@
+/* Main Container */
+.listing-container {
+    width: 100%;
+    padding: 2rem 5%;
+    background-color: #fcfcfc;
+    min-height: 80vh;
+}
+
+.listing-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.listing-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #1a5d1a;
+    margin-bottom: 0.5rem;
+}
+
+.listing-subtitle {
+    font-size: 1rem;
+    color: #666;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Specific Grid Layout */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+/* Reusing Product Card Styles (Ensure consistency) */
+.product-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f0f0f0;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+
+.image-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+    /* Center fallback */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important;
+    /* Full bleed image */
+    object-position: center;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    padding: 0;
+    /* Remove padding */
+    z-index: 1;
+}
+
+.hover-img {
+    opacity: 0;
+    z-index: 2;
+}
+
+.product-card:hover .hover-img {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.product-card:hover .main-img {
+    opacity: 0;
+}
+
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #1a5d1a;
+    color: white;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    z-index: 10;
+    /* Ensure badge stays above images */
+}
+
+.product-info {
+    padding: 1.2rem;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.product-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price-container {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.current-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a5d1a;
+}
+
+.original-price {
+    font-size: 0.9rem;
+    text-decoration: line-through;
+    color: #999;
+}
+
+.discount-text {
+    font-size: 0.8rem;
+    color: #388e3c;
+    font-weight: 600;
+}
+
+/* Back Button */
+/* Back Button */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #fff;
+    color: #1a5d1a;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.back-btn:hover {
+    background-color: #1a5d1a;
+    color: #fff;
+    transform: translateX(-5px);
+    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.2);
+    border-color: #1a5d1a;
+}
+
+.back-btn i {
+    transition: transform 0.3s ease;
+}
+
+.back-btn:hover i {
+    transform: translateX(-3px);
+}

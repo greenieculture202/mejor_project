@@ -1,0 +1,117 @@
+<div class="product-detail-container" *ngIf="product">
+    <div class="product-images-wrapper">
+        <!-- Thumbnails sidebar -->
+        <div class="thumbnails-sidebar">
+            <div *ngFor="let img of thumbnails; let i = index" class="thumbnail-item"
+                [class.active]="i === activeImageIndex" (click)="setActiveImage(i)">
+                <img [src]="img" [alt]="product.name">
+            </div>
+        </div>
+
+        <!-- Main Image -->
+        <div class="main-image-container">
+            <img [src]="thumbnails[activeImageIndex]" [alt]="product.name" class="main-img">
+        </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="product-info-wrapper">
+        <h1 class="product-title">{{ product.name }}</h1>
+        <div class="rating">
+            <i class="fas fa-star"></i> 4.8 | 195
+        </div>
+        <div class="price-block">
+            <span class="current-price">{{ product.price }}</span>
+            <span class="original-price" *ngIf="product.originalPrice">{{ product.originalPrice }}</span>
+            <span class="discount-badge" *ngIf="product.discount">{{ product.discount }}</span>
+        </div>
+        <span class="taxes-text">(Incl. of all taxes)</span>
+
+        <!-- SELECT PLANTER -->
+        <div style="margin-top: 20px;">
+            <p class="section-label">SELECT PLANTER</p>
+            <div class="planter-options">
+                <div class="planter-option selected">
+                    <span class="planter-name">Glass Bowl</span>
+                    <span class="planter-price">{{ product.price }}</span>
+                    <div class="check-mark"><i class="fas fa-check"></i></div>
+                </div>
+                <div class="planter-option">
+                    <span class="planter-name">Candle Jar</span>
+                    <span class="planter-price">₹420</span>
+                </div>
+                <div class="planter-option">
+                    <span class="planter-name">Potters Wheel</span>
+                    <span class="planter-price">₹465</span>
+                </div>
+            </div>
+        </div>
+
+        <label class="gift-option">
+            <input type="checkbox"> Make This a Gift
+        </label>
+
+        <div class="actions">
+            <div class="quantity-selector">
+                <button>-</button>
+                <span>1</span>
+                <button>+</button>
+            </div>
+            <button class="add-to-cart-btn btn">ADD TO CART</button>
+            <button class="buy-now-btn btn">BUY IT NOW</button>
+        </div>
+
+        <!-- OFFERS -->
+        <div class="offers-box">
+            <div class="offers-header">
+                <i class="fas fa-tags"></i>
+                <span>Your Offers & Gift Cards</span>
+            </div>
+            <p class="offers-subtext">Offers from banks & brands for you!</p>
+        </div>
+
+        <!-- ABOUT PRODUCT -->
+        <div class="about-section">
+            <h3 class="section-title">About The Product</h3>
+            <p class="about-text">
+                Easy to grow and care for, this plant is a popular indoor plant because of more reasons than just its
+                care requirements. According to Feng Shui, this is one of the best lucky plants for homes, and its
+                reputation as such greatly adds to its charm and allure. Additionally, it is also a great gifting option
+                that works as a personal pick-me-up!
+            </p>
+
+            <div style="color: #008f53; font-weight: 600; margin-bottom: 20px; cursor: pointer;">
+                <i class="fas fa-leaf"></i> View Light guide
+            </div>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-tint"></i></div>
+                    <span class="feature-text">Water Twice a Month</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-sun"></i></div>
+                    <span class="feature-text">Needs bright indirect sunlight</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-paw"></i></div>
+                    <span class="feature-text">Keep out of pet reach</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-smile"></i></div>
+                    <span class="feature-text">Beginner friendly</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!product" style="padding: 100px; text-align: center;">
+    <h2>Product Not Found</h2>
+    <p>We couldn't find the product you're looking for.</p>
+    <a routerLink="/" style="color: #2e7d32; text-decoration: underline;">Go Back Home</a>
+</div>
