@@ -1,0 +1,240 @@
+/* ================= ADMIN SHARED STYLES ================= */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --admin-font: 'Outfit', 'Segoe UI', system-ui, sans-serif;
+    --admin-bg-color: #ecfdf5;
+    --admin-primary: #064e3b;
+    --admin-secondary: #047857;
+    --admin-accent: #10b981;
+    --admin-card-bg: rgba(255, 255, 255, 0.95);
+    --admin-border: #f1f5f9;
+}
+
+.admin-wrapper {
+    padding: 24px;
+    min-height: 100vh;
+    background-color: var(--admin-bg-color);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(52, 211, 153, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
+    font-family: var(--admin-font);
+    animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================= HEADERS ================= */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.page-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.8rem;
+    color: var(--admin-primary);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.page-header p {
+    margin: 0;
+    color: var(--admin-secondary);
+    font-size: 0.95rem;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+/* ================= ACTIONS & BUTTONS ================= */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-primary {
+    background: #2d6b45;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(45, 107, 69, 0.2);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(45, 107, 69, 0.3);
+    background: #1b5e20;
+}
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-edit {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.btn-edit:hover {
+    background: #fde68a;
+}
+
+.btn-delete {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.btn-delete:hover {
+    background: #fecaca;
+}
+
+/* ================= TABLES ================= */
+.table-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--admin-border);
+    overflow: hidden;
+    overflow-x: auto;
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.modern-table th {
+    text-align: left;
+    padding: 16px 20px;
+    color: #64748b;
+    font-weight: 700;
+    border-bottom: 2px solid #e2e8f0;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #f8fafc;
+}
+
+.modern-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f8fafc;
+    vertical-align: middle;
+    color: #334155;
+    font-size: 0.9rem;
+}
+
+.modern-table tr:hover td {
+    background: #f0fdf4;
+}
+
+.modern-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ================= FORMS & SEARCH ================= */
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input,
+.search-select {
+    padding: 10px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: #fff;
+    color: #334155;
+    transition: all 0.2s;
+}
+
+.search-input:focus,
+.search-select:focus {
+    border-color: var(--admin-accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* ================= MODALS ================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+    background: white;
+    padding: 32px;
+    border-radius: 20px;
+    width: 600px;
+    max-width: 95%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--admin-primary);
+    font-weight: 700;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

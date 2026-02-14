@@ -1,0 +1,16 @@
+<div class="dd-root" [class.full-width]="fullWidth">
+  <button class="dd-toggle" (click)="toggle()" type="button">
+    <ng-container *ngIf="showThumb && selected">
+      <img [src]="selected.image" class="dd-thumb" alt="thumb" />
+    </ng-container>
+    <span class="dd-label">{{ selected?.label || placeholder }}</span>
+    <span class="dd-caret">▾</span>
+  </button>
+
+  <ul class="dd-menu" *ngIf="open">
+    <li class="dd-item" *ngFor="let opt of options; trackBy: trackById" (click)="choose(opt)">
+      <img *ngIf="showThumb" [src]="opt.image" class="dd-thumb" alt="opt" />
+      <span class="dd-text">{{ opt.label }}</span>
+    </li>
+  </ul>
+</div>

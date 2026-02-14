@@ -1,0 +1,96 @@
+<section class="types-grid">
+  <div class="types-title">
+    <h1>Plant Types</h1>
+    <p>Indoor · Outdoor · Flowering · Trending</p>
+  </div>
+
+  <div *ngIf="isLoading" style="text-align: center; padding: 50px; font-size: 1.2rem;">
+    Loading plants...
+  </div>
+
+  <div *ngIf="!isLoading && plants.length === 0" style="text-align: center; padding: 50px; color: red;">
+    <h3>No plants loaded.</h3>
+    <p>Please ensure the backend server is running on port 4000.</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+
+    <!-- RECENTLY ADDED SECTION -->
+    <div class="category" *ngIf="getRecentPlants().length > 0">
+      <div class="category__header">
+        <div>
+          <p class="eyebrow" style="color:red">Fresh Arrivals</p>
+          <h2>Recently Added</h2>
+          <p class="category__sub">The latest plants added to our collection.</p>
+        </div>
+      </div>
+      <div class="carousel">
+        <div class="cards">
+          <div class="card" *ngFor="let plant of getRecentPlants()">
+            <div class="card__image" [style.backgroundImage]="'url(' + (plant.image || 'assets/bg1.jpg') + ')'"></div>
+            <div class="card__body">
+              <h3>
+                {{ plant.name }}
+                <span
+                  style="background:#e74c3c;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:4px;vertical-align:middle;margin-left:4px;">NEW</span>
+              </h3>
+              <p class="desc">{{ plant.category }}</p>
+              <div class="price-row">
+                <span class="price">₹{{ plant.discountPrice }}</span>
+                <span class="mrp">₹{{ plant.price }}</span>
+              </div>
+              <button class="add-to-cart-btn" (click)="addToCart(plant)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category" *ngFor="let category of categories">
+      <div class="category__header">
+        <div>
+          <p class="eyebrow">Category</p>
+          <h2>{{ category }}</h2>
+          <p class="category__sub">
+            Top picks from {{ category.toLowerCase() }} with best deals.
+          </p>
+        </div>
+        <div class="badge">Exclusive</div>
+      </div>
+
+      <div class="carousel">
+        <button class="nav-btn" (click)="slide(category, 'prev')">
+          &#10094;
+        </button>
+
+        <div class="cards">
+          <div class="card" *ngFor="let plant of getVisiblePlants(category)">
+            <div class="card__image" [style.backgroundImage]="'url(' + (plant.image || 'assets/bg1.jpg') + ')'"></div>
+            <div class="card__body">
+              <h3>
+                {{ plant.name }}
+                <span *ngIf="isNew(plant)"
+                  style="background:#e74c3c;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:4px;vertical-align:middle;margin-left:4px;">NEW</span>
+              </h3>
+              <p class="desc">{{ plant.description }}</p>
+              <div class="price-row">
+                <span class="price">₹{{ plant.discountPrice }}</span>
+                <span class="mrp">₹{{ plant.price }}</span>
+                <span class="off" *ngIf="plant.price > plant.discountPrice">
+                  {{ ((plant.price - plant.discountPrice) / plant.price * 100) | number:'1.0-0' }}% OFF
+                </span>
+              </div>
+              <button class="add-to-cart-btn" (click)="addToCart(plant)">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button class="nav-btn" (click)="slide(category, 'next')">
+          &#10095;
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,89 @@
+<div class="admin-blog-container">
+    <div class="page-header">
+        <h2>Manage Blog Posts</h2>
+        <button class="add-btn" (click)="showForm = true">
+            <span>+</span> New Post
+        </button>
+    </div>
+
+    <table class="posts-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let post of posts">
+                <td>{{ post.title }}</td>
+                <td>{{ post.category }}</td>
+                <td>{{ post.date }}</td>
+                <td>
+                    <button class="action-btn edit" (click)="editPost(post)" title="Edit" style="margin-right: 8px;">
+                        ✏️
+                    </button>
+                    <button class="action-btn delete" (click)="deletePost(post.id)" title="Delete">
+                        🗑️
+                    </button>
+                </td>
+            </tr>
+            <tr *ngIf="posts.length === 0">
+                <td colspan="4" style="text-align: center; padding: 30px; color: #888;">No blog posts found.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Add Post Modal -->
+    <div class="form-overlay" *ngIf="showForm" (click)="showForm = false">
+        <div class="blog-form" (click)="$event.stopPropagation()">
+            <div class="form-header">
+                <h3>{{ newPost.id ? 'Edit Blog Post' : 'Create New Blog Post' }}</h3>
+                <button class="action-btn" (click)="showForm = false">✕</button>
+            </div>
+
+            <form (submit)="savePost($event)">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" [(ngModel)]="newPost.title" name="title" required placeholder="Enter post title">
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select [(ngModel)]="newPost.category" name="category">
+                        <option value="Health">Health</option>
+                        <option value="Guide">Guide</option>
+                        <option value="Design">Design</option>
+                        <option value="Culture">Culture</option>
+                        <option value="News">News</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Image URL (Optional)</label>
+                    <input type="text" [(ngModel)]="newPost.image" name="image"
+                        placeholder="https://example.com/image.jpg">
+                </div>
+
+                <div class="form-group">
+                    <label>Short Excerpt</label>
+                    <textarea [(ngModel)]="newPost.excerpt" name="excerpt" rows="2"
+                        placeholder="Brief summary..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Full Content</label>
+                    <textarea [(ngModel)]="newPost.content" name="content" rows="6"
+                        placeholder="Write your full article here..." style="height: 150px;"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" (click)="showForm = false">Cancel</button>
+                    <button type="submit" class="btn-primary">{{ newPost.id ? 'Save Changes' : 'Publish Post'
+                        }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

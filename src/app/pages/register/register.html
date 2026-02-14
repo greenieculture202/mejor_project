@@ -1,0 +1,58 @@
+<div class="register-page">
+  <div class="register-card">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#123b2b" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L12 22M12 22C12 22 4 18 4 12C4 6 12 2 12 2M12 22C12 22 20 18 20 12C20 6 12 2 12 2"></path>
+      </svg>
+    </div>
+    <h2>Join Greenie</h2>
+    <p>Create an account to start your green journey.</p>
+
+    <form (ngSubmit)="submit()" #f="ngForm" class="register-form">
+      <div class="input-group">
+        <input name="name" [(ngModel)]="name" placeholder="Full Name" required />
+      </div>
+
+      <div class="input-group">
+        <input name="email" [(ngModel)]="email" placeholder="Email Address" required />
+      </div>
+
+      <div class="input-group">
+        <input name="phone" [(ngModel)]="phone" placeholder="Phone Number" required />
+      </div>
+
+      <div class="input-group">
+        <textarea name="address" [(ngModel)]="address" placeholder="Residential Address" required class="address-input"
+          rows="2"></textarea>
+      </div>
+
+      <div class="input-group">
+        <input name="password" [(ngModel)]="password" type="password" placeholder="Password" required />
+      </div>
+
+      <div class="input-group">
+        <input name="confirm" [(ngModel)]="confirm" type="password" placeholder="Confirm Password" required />
+      </div>
+
+      <div class="input-group">
+        <select name="role" [(ngModel)]="role" class="role-select">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+
+
+      <div class="register-actions">
+        <button type="submit" class="btn btn-primary">Register Now</button>
+      </div>
+    </form>
+
+
+
+    <div class="login-link">
+      Already registered? <a routerLink="/login">Login now</a>
+    </div>
+  </div>
+</div>

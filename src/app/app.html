@@ -1,0 +1,213 @@
+<ng-container *ngIf="!isAuthRoute && !isAdminRoute">
+
+  <div class="container">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-container">
+
+        <div class="logo">
+          <span class="logo-text">{{ siteName }}</span>
+        </div>
+
+        <!-- search bar -->
+        <div class="search-wrapper">
+          <input class="search-input" type="search" placeholder="Search luxury..."
+            (input)="onSearchInput($event.target.value)" (keyup.enter)="submitSearch()" />
+          <button class="search-button search-icon" (click)="submitSearch()" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </div>
+
+        <ul class="nav-menu">
+          <!-- Standard Links -->
+          <ng-container *ngFor="let item of navItems">
+            <li class="nav-item" *ngIf="item.label">
+              <a (click)="handleNavClick(item)" class="nav-link" style="cursor: pointer;">{{ item.label }}</a>
+            </li>
+          </ng-container>
+        </ul>
+
+        <!-- Right Side Actions: Cart & User -->
+        <div class="nav-actions-right">
+
+          <!-- Cart Button (Always Visible) -->
+          <button class="icon-action-btn" (click)="openCart()" aria-label="Cart">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span class="cart-badge-floating" *ngIf="cartCount > 0">{{ cartCount }}</span>
+          </button>
+
+          <!-- Authenticated User Actions -->
+          <ng-container *ngIf="isLoggedIn">
+            <!-- My Orders -->
+            <button class="icon-action-btn" (click)="myOrders()" title="My Orders">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                </path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </button>
+
+            <!-- Name -->
+            <span class="user-name-text">{{ userName }}</span>
+
+            <!-- Logout -->
+            <button class="icon-action-btn" (click)="logout()" title="Logout">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </button>
+          </ng-container>
+
+          <!-- Guest Actions -->
+          <ng-container *ngIf="!isLoggedIn">
+            <button class="icon-action-btn" (click)="openLoginPage()" aria-label="User Account">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+              </svg>
+            </button>
+          </ng-container>
+
+        </div>
+
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="slideshow-container">
+        <div *ngFor="let image of slideshowImages; let i = index" class="slide" [class.active]="i === currentSlideIndex"
+          [style.backgroundImage]="'url(' + image + ')'">
+        </div>
+
+      </div>
+
+      <div class="hero-overlay"></div>
+
+
+      <div class="hero-content">
+        <h1>{{ siteName }}</h1>
+        <p>{{ tagline }}</p>
+      </div>
+    </section>
+
+    <!-- TYPES SECTION -->
+    <app-types id="types-section"></app-types>
+
+    <!-- CARE SECTION -->
+    <app-care id="care-tips-section"></app-care>
+
+    <!-- BLOG SECTION -->
+    <app-blog id="blog-section"></app-blog>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal-overlay" *ngIf="showLoginModal" (click)="closeLoginModal()">
+      <div class="modal-dialog" (click)="$event.stopPropagation()">
+        <h2>Welcome to Greenie Culture</h2>
+        <p>Do you want to login to access personalized features?</p>
+        <div class="modal-actions">
+          <button class="btn btn-primary" (click)="openLoginPage()">Login</button>
+          <button class="btn btn-secondary" (click)="closeLoginModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ SECTION -->
+    <app-faq id="faq-section"></app-faq>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-grid">
+          <!-- Column 1: Brand -->
+          <div class="footer-col brand-col">
+            <h2 class="footer-logo">{{ siteName }}</h2>
+            <p class="footer-desc">
+              Your ultimate destination for premium indoor and outdoor plants. We believe in bringing nature closer to
+              your lifestyle, one leaf at a time.
+            </p>
+            <div class="social-links">
+              <a href="#" class="social-icon"><span>FB</span></a>
+              <a href="#" class="social-icon"><span>IG</span></a>
+              <a href="#" class="social-icon"><span>TW</span></a>
+              <a href="#" class="social-icon"><span>YT</span></a>
+            </div>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a (click)="scrollTo('types-section')">Explore Plants</a></li>
+              <li><a (click)="scrollTo('care-tips-section')">Plant Care</a></li>
+              <li><a (click)="scrollTo('occasion-section')">Occasions</a></li>
+              <li><a (click)="scrollTo('blog-section')">Our Blog</a></li>
+              <li><a routerLink="/cart">My Cart</a></li>
+              <li><a routerLink="/my-orders">Track Orders</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Customer Care -->
+          <div class="footer-col">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a routerLink="/faq">FAQs</a></li>
+              <li><a routerLink="/faq" fragment="reviews">Customer Reviews</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Legal -->
+          <div class="footer-col">
+            <h3>Policies</h3>
+            <ul>
+              <li><a routerLink="/policy/shipping">Shipping Policy</a></li>
+              <li><a routerLink="/policy/returns">Returns & Exchanges</a></li>
+              <li><a routerLink="/policy/privacy">Privacy Policy</a></li>
+              <li><a routerLink="/policy/terms">Terms of Service</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Newsletter -->
+          <div class="footer-col newsletter-col">
+            <h3>Join our Green Circle</h3>
+            <p>Subscribe to get special offers and gardening tips.</p>
+            <form class="footer-form">
+              <input type="email" placeholder="Your Email Address">
+              <button type="button">Join</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; {{ currentYear }} {{ siteName }}. All rights reserved.</p>
+          <div class="footer-badges">
+            <span class="badge">SECURE PAYMENT</span>
+            <span class="badge">FAST DELIVERY</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+</ng-container>
+
+<!-- 👇 ROUTER OUTPUT -->
+<router-outlet></router-outlet>
+
+<app-notification></app-notification>

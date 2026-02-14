@@ -1,0 +1,64 @@
+<section class="blog-section" id="blog-section">
+  <div class="blog-header">
+    <h2 class="section-title">The Green Journal</h2>
+    <p class="section-subtitle">Stories, tips, and inspiration for your plant journey.</p>
+  </div>
+
+  <div class="blog-container">
+    <!-- Featured Post -->
+    <div class="featured-post">
+      <div class="featured-image" [style.backgroundImage]="'url(' + (featuredPost.image || 'assets/bg4.jpg') + ')'">
+      </div>
+      <div class="featured-content">
+        <span class="blog-category">{{ featuredPost.category }}</span>
+        <h3>{{ featuredPost.title }}</h3>
+        <p>{{ featuredPost.excerpt }}</p>
+        <a (click)="openPost(featuredPost)" class="read-btn" style="cursor: pointer;">Read Full Article</a>
+      </div>
+    </div>
+
+    <!-- Recent Posts Grid -->
+    <div class="posts-grid">
+      <div class="post-card" *ngFor="let post of posts">
+        <div class="post-image" [style.backgroundImage]="'url(' + (post.image || 'assets/bg2.avif') + ')'"></div>
+        <div class="post-content">
+          <span class="blog-category" [style.color]="'#27a13a'">{{ post.category }}</span>
+          <h4>{{ post.title }}</h4>
+          <p>{{ post.excerpt }}</p>
+          <div class="card-footer">
+            <span class="date">{{ post.date }}</span>
+            <a (click)="openPost(post)" class="read-more" style="cursor: pointer;">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE MODAL -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-dialog blog-modal" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeModal()">×</button>
+
+      <div class="modal-content-scroll" *ngIf="currentPost">
+        <div class="blog-modal-header" [style.backgroundImage]="'url(' + currentPost.image + ')'">
+          <div class="blog-modal-overlay"></div>
+          <div class="blog-modal-title-wrapper">
+            <span class="blog-category on-dark">{{ currentPost.category }}</span>
+            <h2>{{ currentPost.title }}</h2>
+            <span class="blog-date">{{ currentPost.date }}</span>
+          </div>
+        </div>
+
+        <div class="blog-modal-body">
+          <div class="blog-text">
+            <!-- Simple loop for newlines since we don't have markdown parser -->
+            <ng-container *ngFor="let paragraph of currentPost.content.split('\n\n')">
+              <p>{{ paragraph }}</p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

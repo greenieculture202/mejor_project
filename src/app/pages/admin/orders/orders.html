@@ -1,0 +1,62 @@
+<div class="admin-wrapper">
+    <div class="page-header">
+        <div class="header-text">
+            <h1>Order Management</h1>
+            <p>Track and manage customer orders.</p>
+        </div>
+        <!-- Optional: Add filters here if needed -->
+    </div>
+
+    <div *ngIf="isLoading" style="text-align:center; padding: 40px; color:#64748b;">
+        Loading orders...
+    </div>
+
+    <div class="table-container" *ngIf="!isLoading && orders.length > 0">
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Items</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders">
+                    <td><span style="font-family:monospace; background:#f1f5f9; padding:4px 8px; border-radius:4px;">#{{
+                            order._id.slice(-6) }}</span></td>
+                    <td>
+                        <div style="font-weight:600; color:#1e293b;">{{ order.user?.name || 'Unknown' }}</div>
+                        <div style="font-size:0.8rem; color:#64748b;">{{ order.user?.email }}</div>
+                    </td>
+                    <td>{{ order.createdAt | date:'mediumDate' }}</td>
+                    <td><span style="font-weight:700; color:#059669;">₹{{ order.totalAmount }}</span></td>
+                    <td>
+                        <div *ngFor="let item of order.items" style="font-size:0.85rem; margin-bottom:2px;">
+                            <span style="color:#334155;">{{ item.name }}</span>
+                            <span style="color:#94a3b8; font-size:0.8rem;">(x{{ item.quantity }})</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+                            {{ order.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <select [ngModel]="order.status" (ngModelChange)="updateStatus(order, $event)">
+                            <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="!isLoading && orders.length === 0"
+        style="text-align:center; padding:60px; color:#94a3b8; font-style:italic;">
+        No orders found.
+    </div>
+</div>

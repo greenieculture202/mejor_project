@@ -1,0 +1,126 @@
+<section class="care-grid" id="care-tips-section">
+  <div class="care-title">
+    <h1>Plant Care</h1>
+    <div class="title-accent"></div>
+    <p>Essential tips for keeping your plants healthy</p>
+  </div>
+
+  <div *ngIf="isLoading" style="text-align: center; padding: 50px; font-size: 1.2rem;">
+    Loading care tips...
+  </div>
+
+  <div *ngIf="!isLoading" class="care-cards">
+    <div class="cards-row">
+      <div class="card" *ngFor="let product of careProducts">
+        <div class="card__image" [style.backgroundImage]="'url(' + product.image + ')'"></div>
+        <div class="card__body">
+          <h3>{{ product.title }}</h3>
+          <p class="desc">{{ product.description }}</p>
+          <div class="price">₹{{ product.price }}</div>
+          <div class="rating">★★★★☆ (4.8)</div>
+          <button class="view-product-btn" (click)="viewProduct(product)">View Product</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANTS BY OCCASION -->
+<section class="occasion-section" id="occasion-section">
+  <div class="occasion-header">
+    <h2>Plants By Occasion</h2>
+    <div class="header-accent"></div>
+  </div>
+
+  <div class="occasion-grid">
+    <div class="occasion-card" *ngFor="let item of occasions" [ngClass]="item.span">
+      <div class="occasion-img-wrapper">
+        <img [src]="item.image" [alt]="item.title" class="occasion-img">
+        <div class="occasion-overlay">
+          <p>{{ item.details }}</p>
+          <button class="shop-now-btn" (click)="openOccasionDetails(item); $event.stopPropagation()">View
+            Details</button>
+        </div>
+      </div>
+      <div class="occasion-title">{{ item.title }}</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT MODAL (Reusing Occasion Modal Style) -->
+<div class="modal-overlay" *ngIf="showProductModal" (click)="closeProductModal()">
+  <div class="modal-content occasion-modal" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeProductModal()">×</button>
+
+    <div *ngIf="selectedProduct" class="occasion-details-content">
+      <div class="occ-modal-img" [style.backgroundImage]="'url(' + selectedProduct.image + ')'"></div>
+
+      <div class="occ-modal-info">
+        <div class="occ-badge">{{ selectedProduct.category }}</div>
+        <h2>{{ selectedProduct.title }}</h2>
+        <div class="occ-divider"></div>
+
+        <div class="price" style="font-size: 1.8rem; margin-bottom: 15px;">₹{{ selectedProduct.price }}</div>
+
+        <p class="occ-description-long">{{ selectedProduct.details }}</p>
+
+        <div class="occ-features">
+          <div class="feat-item">
+            <span class="feat-icon">✨</span>
+            <span>Premium Quality</span>
+          </div>
+          <div class="feat-item">
+            <span class="feat-icon">🚚</span>
+            <span>Fast Delivery</span>
+          </div>
+          <div class="feat-item">
+            <span class="feat-icon">🛡️</span>
+            <span>Durable</span>
+          </div>
+        </div>
+
+        <div class="occ-modal-actions">
+          <button class="add-to-cart-modal-btn" (click)="addToCart(selectedProduct)"
+            style="width: 100%; margin-top: 0;">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OCCASION DETAILS MODAL -->
+<div class="modal-overlay" *ngIf="showOccasionModal" (click)="closeOccasionModal()">
+  <div class="modal-content occasion-modal" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeOccasionModal()">×</button>
+
+    <div *ngIf="selectedOccasion" class="occasion-details-content">
+      <div class="occ-modal-img" [style.backgroundImage]="'url(' + selectedOccasion.image + ')'"></div>
+
+      <div class="occ-modal-info">
+        <div class="occ-badge">Planting Happiness</div>
+        <h2>Gifting for {{ selectedOccasion.title }}</h2>
+        <div class="occ-divider"></div>
+        <p class="occ-description-long">{{ selectedOccasion.moreDetails }}</p>
+
+        <div class="occ-features">
+          <div class="feat-item">
+            <span class="feat-icon">💝</span>
+            <span>Thoughtful Gesture</span>
+          </div>
+          <div class="feat-item">
+            <span class="feat-icon">🏠</span>
+            <span>Long Lasting Life</span>
+          </div>
+          <div class="feat-item">
+            <span class="feat-icon">🌿</span>
+            <span>Sustainable & Eco-friendly</span>
+          </div>
+        </div>
+
+        <div class="occ-modal-actions">
+          <button class="explore-btn" (click)="exploreCollection()">Explore Collection</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
